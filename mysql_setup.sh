@@ -1,4 +1,6 @@
 #!/bin/bash
+
+#Checking whether mysql is installed in the machine
 mysql --version > mysql_version.txt
 
 OPMYSQL=$(cat mysql_version.txt)
@@ -8,6 +10,7 @@ mysql --version | cut -d " " -f 4 > mysql_version.txt
 TESTSQL=$(cat mysql_version.txt)
 echo $TESTSQL
 
+#Finding whether the MySQL statement contains the version of the MySQL
 if grep -q "$TESTSQL" <<< "$OPMYSQL"; then
   echo "MySQL is installed appropriately so moving further with the setup"
     echo "- starting to initialize the mysql database and verifying the user auth"
@@ -28,6 +31,7 @@ if grep -q "$TESTSQL" <<< "$OPMYSQL"; then
     echo "- Creating a new directory for nodelogin files"
     cd ~ 
     pwd
+    #Installing the package dependencies
         if [ -d "nodelogin" ];
         then
                 echo "-entering nodelogin"
@@ -54,6 +58,7 @@ if grep -q "$TESTSQL" <<< "$OPMYSQL"; then
                 echo "- all dependencies installed successfully"
         fi
 else 
+  #Download the MySQL if it is not downloaded or installed
   echo "MySQL is not installed, so redirecting to the MYSQL Downloads."
   open https://dev.mysql.com/downloads/mysql/
 fi
